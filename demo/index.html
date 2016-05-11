@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" manifest="manifest.appcache">
+<head>
+    <meta charset="UTF-8">
+    <title>&lt;qr-reader&gt; Demo</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0">
+</head>
+<body>
+	<p>An example of <code>&lt;qr-reader&gt;</code>.</p>
+
+	<p>Capture a QR Code with your camera. As soon as it is read, an alert shows the QR code's content.</p>
+
+	<!-- Using the Web Component -->
+	<qr-reader autostart></qr-reader>
+  <canvas id="l0" width="320" height="240"></canvas>
+  <canvas id="l1" width="320" height="240"></canvas>
+  <canvas id="l2" width="320" height="240"></canvas>
+	<button type="button" id="startScan">Start Scanning</button>
+	<button type="button" id="stopScan">Stop Scanning</button>
+  <br/>
+	<!-- Polyfill -->
+  <span disp></span>
+	<script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+	<!-- Webcomponent and dependencies -->
+	<link rel="import" href="../qr-reader.html">
+
+	<script>
+		var qrReader = document.querySelector('qr-reader');
+		var startButton = document.querySelector('#startScan');
+		var stopButton = document.querySelector('#stopScan');
+
+		qrReader.addEventListener('qr-code-read', function(e) {
+			document.querySelector("[disp]").innerHTML = JSON.stringify(e.detail);
+		});
+
+		startButton.addEventListener('click', function(e) {
+			qrReader.startScan();
+		});
+
+		stopButton.addEventListener('click', function(e) {
+			qrReader.stopScan();
+		});
+	</script>
+</body>
+</html>
